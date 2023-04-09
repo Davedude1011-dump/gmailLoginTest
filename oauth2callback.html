@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Sign-In API Callback Page</title>
+	<meta name="google-signin-client_id" content="414451340956-clusiba109g8qf20i2d6tihjhbl6saks.apps.googleusercontent.com">
+</head>
+<body>
+	<script>
+		function onSignIn(googleUser) {
+			// handle the Google Sign-In API response here
+		}
+	</script>
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+	<script>
+		function init() {
+			gapi.load('auth2', function() {
+				gapi.auth2.init({
+					client_id: '[your client ID]',
+					redirect_uri: 'https://davedude1011.github.io/gmailLoginTest/oauth2callback.html',
+					response_type: 'token id_token',
+					scope: 'email profile openid'
+				}).then(function(authInstance) {
+					if (authInstance.isSignedIn.get()) {
+						onSignIn(authInstance.currentUser.get());
+					} else {
+						authInstance.signIn();
+					}
+				});
+			});
+		}
+	</script>
+</body>
+</html>
